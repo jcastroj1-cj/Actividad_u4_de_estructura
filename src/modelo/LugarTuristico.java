@@ -1,6 +1,5 @@
 package modelo;
 
-
 public class LugarTuristico {
 
     private String codigo;
@@ -39,7 +38,6 @@ public class LugarTuristico {
                 " | Ciudad: " + ciudad +
                 " | Descripción: " + descripcion;
     }
-    Cuando lo tengas, agrega los últimos dos métodos equals y hashCode. ¿Listo?
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,5 +50,4 @@ public class LugarTuristico {
     public int hashCode() {
         return codigo.toUpperCase().hashCode();
     }
-
 }
