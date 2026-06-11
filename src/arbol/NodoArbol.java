@@ -110,5 +110,45 @@ public class NodoArbol {
         System.out.println("✅ Lugar actualizado correctamente.");
         System.out.println(nodo.getLugar());
     }
-    
+    // Eliminar un lugar por código
+    public void eliminar(String codigo) {
+        if (estaVacio()) {
+            System.out.println("❌ El árbol está vacío.");
+            return;
+        }
+
+        // No se puede eliminar la raíz si tiene hijos
+        if (raiz.getLugar().getCodigo().equalsIgnoreCase(codigo)) {
+            if (!raiz.getHijos().isEmpty()) {
+                System.out.println("❌ No se puede eliminar la raíz porque tiene sublugares.");
+                return;
+            }
+            raiz = null;
+            System.out.println("✅ Raíz eliminada.");
+            return;
+        }
+
+        // Buscar el padre del nodo a eliminar
+        NodoArbol padre = buscarPadre(raiz, codigo);
+        if (padre == null) {
+            System.out.println("❌ No se encontró un lugar con código: " + codigo);
+            return;
+        }
+
+        // Eliminar el hijo de la lista del padre
+        padre.getHijos().removeIf(h -> h.getLugar().getCodigo().equalsIgnoreCase(codigo));
+        System.out.println("✅ Lugar eliminado correctamente.");
+    }
+
+    // Buscar el padre de un nodo por código
+    private NodoArbol buscarPadre(NodoArbol nodo, String codigoHijo) {
+        for (NodoArbol hijo : nodo.getHijos()) {
+            if (hijo.getLugar().getCodigo().equalsIgnoreCase(codigoHijo)) {
+                return nodo;
+            }
+            NodoArbol resultado = buscarPadre(hijo, codigoHijo);
+            if (resultado != null) return resultado;
+        }
+        return null;
+    }
 }
